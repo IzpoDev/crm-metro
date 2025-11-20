@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro CRM - Sistema de Gestión de Clientes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i> Metro CRM
+            </div>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-user-circle fa-lg"></i></a>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Inicio</a>
+                <a href="afiliar.html">Afiliar Cliente</a>
+                <a href="actualizar.html">Actualizar Datos</a>
+                <a href="notificar.html">Notificar Oferta</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero mb-2">
+            <div class="card">
+                <h1 style="color: var(--primary-color); margin-bottom: 0.5rem;">
+                    <i class="fas fa-users"></i> Sistema CRM Metro
+                </h1>
+                <p class="text-light" style="font-size: 1.1rem;">Gestión integral de clientes y relaciones comerciales
+                </p>
+            </div>
+        </section>
+
+        <!-- Módulos Principales -->
+        <section class="mb-2">
+            <h2 class="mb-1">Módulos del Sistema</h2>
+            <div class="grid-container" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+
+                <!-- UC-CRM-01: Afiliar Cliente -->
+                <a href="afiliar.html" class="card"
+                    style="color: inherit; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div style="text-align: center; padding: 1rem;">
+                        <div
+                            style="background: linear-gradient(135deg, #4CAF50, #45a049); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                            <i class="fas fa-user-plus fa-3x" style="color: white;"></i>
+                        </div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Afiliar Cliente</h3>
+                        <p class="text-light" style="margin-bottom: 1rem;">Registrar nuevos clientes en el sistema con
+                            sus datos personales y medios de contacto.</p>
+                        <div
+                            style="background: #f8f9fa; padding: 0.75rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <p style="margin: 0; font-size: 0.9rem;"><strong>Actor:</strong> Cajero / Ejecutivo de
+                                atención</p>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; pointer-events: none;">
+                            <i class="fas fa-arrow-right"></i> Acceder
+                        </button>
+                    </div>
+                </a>
+
+                <!-- UC-CRM-02: Actualizar Datos -->
+                <a href="actualizar.html" class="card"
+                    style="color: inherit; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div style="text-align: center; padding: 1rem;">
+                        <div
+                            style="background: linear-gradient(135deg, #2196F3, #1976D2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                            <i class="fas fa-user-edit fa-3x" style="color: white;"></i>
+                        </div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Actualizar Datos</h3>
+                        <p class="text-light" style="margin-bottom: 1rem;">Modificar información personal o de contacto
+                            de clientes existentes.</p>
+                        <div
+                            style="background: #f8f9fa; padding: 0.75rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <p style="margin: 0; font-size: 0.9rem;"><strong>Actor:</strong> Ejecutivo / Supervisor</p>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; pointer-events: none;">
+                            <i class="fas fa-arrow-right"></i> Acceder
+                        </button>
+                    </div>
+                </a>
+
+                <!-- UC-CRM-03: Notificar Oferta -->
+                <a href="notificar.html" class="card"
+                    style="color: inherit; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div style="text-align: center; padding: 1rem;">
+                        <div
+                            style="background: linear-gradient(135deg, #FF9800, #F57C00); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                            <i class="fas fa-bullhorn fa-3x" style="color: white;"></i>
+                        </div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Notificar Oferta</h3>
+                        <p class="text-light" style="margin-bottom: 1rem;">Enviar comunicaciones de ofertas y
+                            promociones a clientes seleccionados.</p>
+                        <div
+                            style="background: #f8f9fa; padding: 0.75rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <p style="margin: 0; font-size: 0.9rem;"><strong>Actor:</strong> Ejecutivo de marketing</p>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; pointer-events: none;">
+                            <i class="fas fa-arrow-right"></i> Acceder
+                        </button>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Información del Sistema -->
+        <section>
+            <div class="card"
+                style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-left: 4px solid var(--primary-color);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">
+                    <i class="fas fa-info-circle"></i> Acerca del Sistema CRM
+                </h3>
+                <p class="text-light" style="margin-bottom: 1rem;">
+                    El Sistema CRM de Metro permite gestionar la relación con los clientes a través de tres módulos
+                    principales:
+                </p>
+                <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-color);">
+                    <li style="margin-bottom: 0.5rem;"><strong>Afiliación:</strong> Registro de nuevos clientes con
+                        validación de datos y medios de contacto.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Actualización:</strong> Modificación de información con
+                        trazabilidad completa de cambios.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Notificación:</strong> Envío de ofertas y promociones
+                        respetando preferencias del cliente.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Metro</h3>
+                <ul>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Tiendas</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Ayuda</h3>
+                <ul>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Cencosud - Supermercados Metro. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

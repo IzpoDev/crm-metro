@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro CRM - Notificar Oferta o Promoción</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i> Metro CRM
+            </div>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-user-circle fa-lg"></i></a>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="afiliar.html">Afiliar Cliente</a>
+                <a href="actualizar.html">Actualizar Datos</a>
+                <a href="notificar.html" class="active">Notificar Oferta</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- UC-CRM-03: Notificar Oferta o Promoción -->
+        <section class="mb-2">
+            <h1 class="text-center mb-2" style="color: var(--primary-color);">
+                <i class="fas fa-bullhorn"></i> Notificar Oferta o Promoción
+            </h1>
+            <p class="text-center text-light mb-2">Envíe comunicaciones de ofertas y promociones a clientes
+                seleccionados</p>
+
+            <!-- Selección de Cliente -->
+            <div class="card mb-2" style="max-width: 900px; margin: 0 auto;">
+                <h3 class="mb-1" style="color: var(--primary-color);">
+                    <i class="fas fa-users"></i> 1. Seleccionar Cliente
+                </h3>
+
+                <div class="form-group">
+                    <label for="buscarCliente">Buscar Cliente</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <input type="text" id="buscarCliente" class="form-control"
+                            placeholder="Buscar por DNI, nombre o teléfono" style="flex: 1; min-width: 250px;">
+                        <button id="btnBuscarCliente" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista de Clientes (simulada) -->
+                <div id="listaClientes" style="display: none; margin-top: 1rem;">
+                    <h4 class="mb-1">Resultados de Búsqueda</h4>
+                    <div id="resultadosClientes" style="max-height: 300px; overflow-y: auto;">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Cliente Seleccionado -->
+                <div id="clienteSeleccionado"
+                    style="display: none; background: #e8f5e9; border-left: 4px solid var(--success-color); padding: 1rem; border-radius: var(--radius); margin-top: 1rem;">
+                    <h4 style="color: #2e7d32; margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle"></i> Cliente Seleccionado
+                    </h4>
+                    <p style="margin: 0; color: #2e7d32;">
+                        <strong>Nombre:</strong> <span id="nombreSeleccionado">-</span> |
+                        <strong>DNI:</strong> <span id="dniSeleccionado">-</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Configuración de Notificación (oculto inicialmente) -->
+            <div id="formularioNotificacion" style="display: none;">
+                <div class="card" style="max-width: 900px; margin: 0 auto;">
+                    <form id="notificarForm">
+                        <!-- Medio de Contacto -->
+                        <h3 class="mb-1" style="color: var(--primary-color);">
+                            <i class="fas fa-paper-plane"></i> 2. Seleccionar Medio de Contacto
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="medioContacto">Canal de Comunicación *</label>
+                            <select id="medioContacto" class="form-control" required>
+                                <option value="">Seleccione un canal</option>
+                                <option value="correo">Correo Electrónico</option>
+                                <option value="telefono">Teléfono</option>
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="sms">SMS</option>
+                            </select>
+                        </div>
+
+                        <div id="contactoInfo"
+                            style="display: none; background: #f8f9fa; padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <p style="margin: 0;">
+                                <strong>Contacto Principal:</strong> <span id="contactoPrincipalDisplay">-</span>
+                            </p>
+                            <p style="margin: 0.5rem 0 0 0;">
+                                <strong>Valor:</strong> <span id="valorContacto">-</span>
+                            </p>
+                        </div>
+
+                        <!-- Mensaje de la Oferta -->
+                        <h3 class="mb-1 mt-2" style="color: var(--primary-color);">
+                            <i class="fas fa-edit"></i> 3. Redactar Mensaje
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="tipoOferta">Tipo de Oferta</label>
+                            <select id="tipoOferta" class="form-control">
+                                <option value="">Seleccione un tipo</option>
+                                <option value="descuento">Descuento Especial</option>
+                                <option value="2x1">Promoción 2x1</option>
+                                <option value="regalo">Regalo con Compra</option>
+                                <option value="puntos">Puntos Dobles</option>
+                                <option value="personalizada">Oferta Personalizada</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="asuntoMensaje">Asunto del Mensaje *</label>
+                            <input type="text" id="asuntoMensaje" class="form-control"
+                                placeholder="Ej: ¡Oferta especial solo para ti!" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cuerpoMensaje">Mensaje de la Oferta *</label>
+                            <textarea id="cuerpoMensaje" class="form-control" rows="6"
+                                placeholder="Redacte el mensaje de la oferta o promoción..." required></textarea>
+                            <small class="text-light">El mensaje debe ser claro y atractivo para el cliente</small>
+                        </div>
+
+                        <!-- Plantillas Predefinidas -->
+                        <div class="form-group">
+                            <label>Plantillas Predefinidas</label>
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">
+                                <button type="button" class="btn btn-outline" onclick="cargarPlantilla('descuento')">
+                                    <i class="fas fa-percent"></i> Descuento 20%
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="cargarPlantilla('2x1')">
+                                    <i class="fas fa-gift"></i> 2x1 Productos
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="cargarPlantilla('envio')">
+                                    <i class="fas fa-truck"></i> Envío Gratis
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Validación de Preferencias -->
+                        <div id="advertenciaPreferencias"
+                            style="display: none; background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <h4 style="color: #856404; margin-bottom: 0.5rem;">
+                                <i class="fas fa-exclamation-triangle"></i> Advertencia de Preferencias
+                            </h4>
+                            <p style="color: #856404; margin: 0;" id="mensajeAdvertencia"></p>
+                        </div>
+
+                        <!-- Mensaje de Error -->
+                        <div id="errorNotificacion"
+                            style="display: none; background: #ffebee; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <p style="color: var(--primary-color); margin: 0;">
+                                <i class="fas fa-exclamation-circle"></i> <span id="errorNotificacionText"></span>
+                            </p>
+                        </div>
+
+                        <!-- Botones -->
+                        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                <i class="fas fa-paper-plane"></i> Enviar Notificación
+                            </button>
+                            <button type="button" id="btnCancelarNotif" class="btn btn-outline" style="flex: 1;">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historial de Notificaciones Enviadas -->
+        <section id="historialNotificaciones" style="display: none;">
+            <h2 class="mb-1" style="color: var(--primary-color);">
+                <i class="fas fa-history"></i> Historial de Notificaciones
+            </h2>
+            <div class="card" style="max-width: 900px; margin: 0 auto; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; min-width: 700px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--bg-color); text-align: left;">
+                            <th style="padding: 1rem;">Fecha/Hora</th>
+                            <th style="padding: 1rem;">Cliente</th>
+                            <th style="padding: 1rem;">Canal</th>
+                            <th style="padding: 1rem;">Tipo</th>
+                            <th style="padding: 1rem;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHistorial">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Información Adicional -->
+        <section class="mt-2">
+            <div class="card"
+                style="max-width: 900px; margin: 0 auto; background: #e3f2fd; border-left: 4px solid #2196F3;">
+                <h4 style="color: #1565C0; margin-bottom: 0.5rem;">
+                    <i class="fas fa-info-circle"></i> Información Importante
+                </h4>
+                <ul style="margin: 0; padding-left: 1.5rem; color: #1565C0;">
+                    <li>El sistema verifica automáticamente las preferencias y consentimientos del cliente</li>
+                    <li>Si el canal seleccionado no está habilitado, se bloqueará el envío</li>
+                    <li>Todas las notificaciones se registran como actividades CRM</li>
+                    <li>El historial permite medir la efectividad de las comunicaciones</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Metro</h3>
+                <ul>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Tiendas</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Ayuda</h3>
+                <ul>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Cencosud - Supermercados Metro. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

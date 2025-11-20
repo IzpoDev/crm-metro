@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro CRM - Actualizar Datos del Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i> Metro CRM
+            </div>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-user-circle fa-lg"></i></a>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="afiliar.html">Afiliar Cliente</a>
+                <a href="actualizar.html" class="active">Actualizar Datos</a>
+                <a href="notificar.html">Notificar Oferta</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- UC-CRM-02: Actualizar Datos del Cliente -->
+        <section class="mb-2">
+            <h1 class="text-center mb-2" style="color: var(--primary-color);">
+                <i class="fas fa-user-edit"></i> Actualizar Datos del Cliente
+            </h1>
+            <p class="text-center text-light mb-2">Busque y modifique la información de un cliente existente</p>
+
+            <!-- Búsqueda de Cliente -->
+            <div class="card mb-2" style="max-width: 800px; margin: 0 auto;">
+                <h3 class="mb-1" style="color: var(--primary-color);">
+                    <i class="fas fa-search"></i> Buscar Cliente
+                </h3>
+
+                <div class="form-group">
+                    <label for="criterio">Criterio de Búsqueda</label>
+                    <select id="criterio" class="form-control">
+                        <option value="dni">DNI</option>
+                        <option value="nombre">Nombre</option>
+                        <option value="telefono">Teléfono</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="valorBusqueda">Valor de Búsqueda</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <input type="text" id="valorBusqueda" class="form-control"
+                            placeholder="Ingrese el valor a buscar" style="flex: 1; min-width: 250px;">
+                        <button id="btnBuscar" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mensaje de Error de Búsqueda -->
+                <div id="errorBusqueda"
+                    style="display: none; background: #ffebee; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: var(--radius); margin-top: 1rem;">
+                    <p style="color: var(--primary-color); margin: 0;">
+                        <i class="fas fa-exclamation-circle"></i> Cliente no registrado. No se encontró ningún cliente
+                        con ese criterio.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Formulario de Actualización (oculto inicialmente) -->
+            <div id="formularioActualizar" style="display: none;">
+                <div class="card" style="max-width: 800px; margin: 0 auto;">
+                    <!-- Información del Cliente Encontrado -->
+                    <div
+                        style="background: #e8f5e9; border-left: 4px solid var(--success-color); padding: 1rem; border-radius: var(--radius); margin-bottom: 2rem;">
+                        <h4 style="color: #2e7d32; margin-bottom: 0.5rem;">
+                            <i class="fas fa-check-circle"></i> Cliente Encontrado
+                        </h4>
+                        <p style="margin: 0; color: #2e7d32;">
+                            <strong>Código:</strong> <span id="codigoCliente">-</span> |
+                            <strong>Registrado:</strong> <span id="fechaRegistro">-</span>
+                        </p>
+                    </div>
+
+                    <form id="actualizarForm">
+                        <!-- Datos Personales -->
+                        <h3 class="mb-1" style="color: var(--primary-color);">
+                            <i class="fas fa-id-card"></i> Datos Personales
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="dniEdit">DNI</label>
+                            <input type="text" id="dniEdit" class="form-control" readonly
+                                style="background: #f5f5f5; cursor: not-allowed;">
+                            <small class="text-light">El DNI no puede ser modificado</small>
+                        </div>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div class="form-group">
+                                <label for="nombresEdit">Nombres *</label>
+                                <input type="text" id="nombresEdit" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apellidosEdit">Apellidos *</label>
+                                <input type="text" id="apellidosEdit" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="direccionEdit">Dirección *</label>
+                            <input type="text" id="direccionEdit" class="form-control" required>
+                        </div>
+
+                        <!-- Medios de Contacto -->
+                        <h3 class="mb-1 mt-2" style="color: var(--primary-color);">
+                            <i class="fas fa-address-book"></i> Medios de Contacto
+                        </h3>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div class="form-group">
+                                <label for="telefonoEdit">Teléfono *</label>
+                                <input type="tel" id="telefonoEdit" class="form-control" maxlength="15" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="correoEdit">Correo Electrónico *</label>
+                                <input type="email" id="correoEdit" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactoPrincipalEdit">Medio de Contacto Principal *</label>
+                            <select id="contactoPrincipalEdit" class="form-control" required>
+                                <option value="telefono">Teléfono</option>
+                                <option value="correo">Correo Electrónico</option>
+                                <option value="whatsapp">WhatsApp</option>
+                            </select>
+                        </div>
+
+                        <!-- Estado del Cliente -->
+                        <div class="form-group">
+                            <label for="estadoEdit">Estado del Cliente *</label>
+                            <select id="estadoEdit" class="form-control" required>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                                <option value="suspendido">Suspendido</option>
+                            </select>
+                        </div>
+
+                        <!-- Preferencias de Comunicación -->
+                        <div class="form-group">
+                            <label class="mb-1">Preferencias de Comunicación</label>
+                            <div style="background: #f8f9fa; padding: 1rem; border-radius: var(--radius);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                    <input type="checkbox" id="aceptaPromocionesEdit"
+                                        style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                                    <label for="aceptaPromocionesEdit" style="margin: 0; font-weight: normal;">
+                                        Acepta recibir promociones y ofertas
+                                    </label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" id="aceptaNotificacionesEdit"
+                                        style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                                    <label for="aceptaNotificacionesEdit" style="margin: 0; font-weight: normal;">
+                                        Acepta recibir notificaciones del sistema
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mensaje de Error de Validación -->
+                        <div id="errorValidacion"
+                            style="display: none; background: #ffebee; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                            <p style="color: var(--primary-color); margin: 0;">
+                                <i class="fas fa-exclamation-circle"></i> <span id="errorValidacionText"></span>
+                            </p>
+                        </div>
+
+                        <!-- Botones -->
+                        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                <i class="fas fa-save"></i> Guardar Cambios
+                            </button>
+                            <button type="button" id="btnCancelar" class="btn btn-outline" style="flex: 1;">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Información Adicional -->
+        <section>
+            <div class="card"
+                style="max-width: 800px; margin: 0 auto; background: #e3f2fd; border-left: 4px solid #2196F3;">
+                <h4 style="color: #1565C0; margin-bottom: 0.5rem;">
+                    <i class="fas fa-info-circle"></i> Trazabilidad de Cambios
+                </h4>
+                <p style="margin: 0; color: #1565C0;">
+                    Toda modificación se almacena con fecha, hora y usuario que la realizó para fines de auditoría.
+                    Los cambios quedarán registrados en el historial del cliente.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Metro</h3>
+                <ul>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Tiendas</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Ayuda</h3>
+                <ul>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Cencosud - Supermercados Metro. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

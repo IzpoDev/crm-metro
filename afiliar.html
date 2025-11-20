@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro CRM - Afiliar Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i> Metro CRM
+            </div>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-user-circle fa-lg"></i></a>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="afiliar.html" class="active">Afiliar Cliente</a>
+                <a href="actualizar.html">Actualizar Datos</a>
+                <a href="notificar.html">Notificar Oferta</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- UC-CRM-01: Afiliar Cliente -->
+        <section class="mb-2">
+            <h1 class="text-center mb-2" style="color: var(--primary-color);">
+                <i class="fas fa-user-plus"></i> Afiliar Nuevo Cliente
+            </h1>
+            <p class="text-center text-light mb-2">Registre un nuevo cliente en el sistema con sus datos personales y
+                medios de contacto</p>
+
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <form id="afiliarForm">
+                    <!-- Datos Personales -->
+                    <h3 class="mb-1" style="color: var(--primary-color);">
+                        <i class="fas fa-id-card"></i> Datos Personales
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="dni">DNI *</label>
+                        <input type="text" id="dni" class="form-control" placeholder="Ingrese DNI de 8 dígitos"
+                            maxlength="8" pattern="[0-9]{8}" required>
+                        <small class="text-light">Debe contener exactamente 8 dígitos numéricos</small>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <div class="form-group">
+                            <label for="nombres">Nombres *</label>
+                            <input type="text" id="nombres" class="form-control" placeholder="Ej: Juan Carlos" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos *</label>
+                            <input type="text" id="apellidos" class="form-control" placeholder="Ej: Pérez García"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección *</label>
+                        <input type="text" id="direccion" class="form-control"
+                            placeholder="Ej: Av. Principal 123, San Isidro" required>
+                    </div>
+
+                    <!-- Medios de Contacto -->
+                    <h3 class="mb-1 mt-2" style="color: var(--primary-color);">
+                        <i class="fas fa-address-book"></i> Medios de Contacto
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" class="form-control" placeholder="999 999 999"
+                                maxlength="15" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico *</label>
+                            <input type="email" id="correo" class="form-control" placeholder="ejemplo@correo.com"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Contacto Principal -->
+                    <div class="form-group">
+                        <label for="contactoPrincipal">Medio de Contacto Principal *</label>
+                        <select id="contactoPrincipal" class="form-control" required>
+                            <option value="">Seleccione el medio preferido</option>
+                            <option value="telefono">Teléfono</option>
+                            <option value="correo">Correo Electrónico</option>
+                            <option value="whatsapp">WhatsApp</option>
+                        </select>
+                        <small class="text-light">Este será el medio principal para comunicaciones</small>
+                    </div>
+
+                    <!-- Preferencias de Comunicación -->
+                    <div class="form-group">
+                        <label class="mb-1">Preferencias de Comunicación</label>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: var(--radius);">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <input type="checkbox" id="aceptaPromociones"
+                                    style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                                <label for="aceptaPromociones" style="margin: 0; font-weight: normal;">
+                                    Acepta recibir promociones y ofertas
+                                </label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" id="aceptaNotificaciones"
+                                    style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                                <label for="aceptaNotificaciones" style="margin: 0; font-weight: normal;">
+                                    Acepta recibir notificaciones del sistema
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mensaje de Error -->
+                    <div id="errorMessage"
+                        style="display: none; background: #ffebee; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                        <p style="color: var(--primary-color); margin: 0;">
+                            <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
+                        </p>
+                    </div>
+
+                    <!-- Botones -->
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-check"></i> Afiliar Cliente
+                        </button>
+                        <button type="reset" class="btn btn-outline" style="flex: 1;">
+                            <i class="fas fa-times"></i> Limpiar Formulario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Información Adicional -->
+        <section>
+            <div class="card"
+                style="max-width: 800px; margin: 0 auto; background: #fff3cd; border-left: 4px solid #ffc107;">
+                <h4 style="color: #856404; margin-bottom: 0.5rem;">
+                    <i class="fas fa-info-circle"></i> Información Importante
+                </h4>
+                <ul style="margin: 0; padding-left: 1.5rem; color: #856404;">
+                    <li>Todos los campos marcados con (*) son obligatorios</li>
+                    <li>El DNI debe ser único en el sistema</li>
+                    <li>Se registrará automáticamente la fecha y usuario que realizó la afiliación</li>
+                    <li>El sistema generará un código interno de cliente automáticamente</li>
+                    <li>Los datos pueden ser editados posteriormente desde "Actualizar datos de cliente"</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Metro</h3>
+                <ul>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Tiendas</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Ayuda</h3>
+                <ul>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Cencosud - Supermercados Metro. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
