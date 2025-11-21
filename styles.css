@@ -59,6 +59,12 @@ header {
     height: 70px;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -66,6 +72,17 @@ header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.user-icon {
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+.user-icon:hover {
+    transform: scale(1.1);
 }
 
 .nav-links {
