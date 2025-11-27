@@ -5,13 +5,33 @@
     </div>
     <div class="nav-right">
       <div class="nav-links" [class.active]="menuActive">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+        <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
         <a routerLink="/crm/afiliar" routerLinkActive="active">Afiliar Cliente</a>
         <a routerLink="/crm/actualizar" routerLinkActive="active">Actualizar Datos</a>
         <a routerLink="/crm/notificar" routerLinkActive="active">Notificar Oferta</a>
       </div>
       <div class="nav-icons">
-        <a href="#" class="user-icon"><i class="fas fa-user-circle fa-lg"></i></a>
+        @if (currentUser) {
+          <div class="user-menu">
+            <button class="user-icon" (click)="toggleUserMenu()">
+              <i class="fas fa-user-circle fa-lg"></i>
+              <span class="user-name">{{ currentUser.nombre }}</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            @if (showUserMenu) {
+              <div class="user-dropdown">
+                <div class="user-info">
+                  <p class="dropdown-user-name">{{ currentUser.nombre }}</p>
+                  <p class="dropdown-user-role">{{ currentUser.rol }}</p>
+                </div>
+                <hr>
+                <button class="dropdown-item logout-btn" (click)="logout()">
+                  <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+              </div>
+            }
+          </div>
+        }
         <div class="hamburger" (click)="toggleMenu()">
           <i class="fas" [class.fa-bars]="!menuActive" [class.fa-times]="menuActive"></i>
         </div>

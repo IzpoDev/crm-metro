@@ -1,0 +1,84 @@
+<div class="login-container">
+  <div class="login-card">
+    <!-- Logo -->
+    <div class="logo-container">
+      <div class="logo-icon">M</div>
+    </div>
+
+    <!-- Título -->
+    <h1 class="login-title">ERP Metro</h1>
+    <p class="login-subtitle">Módulo de Ventas</p>
+
+    <!-- Formulario -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Usuario -->
+      <div class="form-group">
+        <label for="usuario">Usuario</label>
+        <input
+          type="text"
+          id="usuario"
+          formControlName="usuario"
+          class="form-control"
+          placeholder="Ingrese su usuario"
+          autocomplete="username"
+        />
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+        <label for="contrasena">Contraseña</label>
+        <input
+          type="password"
+          id="contrasena"
+          formControlName="contrasena"
+          class="form-control"
+          placeholder="Ingrese su contraseña"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <!-- Rol -->
+      <div class="form-group">
+        <label for="rol">Rol</label>
+        <select id="rol" formControlName="rol" class="form-control">
+          <option value="">-- Seleccionar Rol --</option>
+          @for (rol of roles; track rol.value) {
+            <option [value]="rol.value">
+              {{ rol.label }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <!-- Mensaje de error -->
+      @if (showError) {
+        <div class="error-message">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+      }
+
+      <!-- Botón de ingresar -->
+      <button type="submit" class="btn-ingresar">
+        Ingresar
+      </button>
+
+      <!-- Enlace olvidó contraseña -->
+      <div class="forgot-password">
+        <a href="#">¿Olvidó su contraseña?</a>
+      </div>
+    </form>
+
+    <!-- Información de usuarios de prueba -->
+    <div class="demo-info">
+      <p style="font-size: 0.85rem; color: #666; margin: 1rem 0 0.5rem 0; font-weight: 600;">
+        <i class="fas fa-info-circle"></i> Usuarios de prueba:
+      </p>
+      <div style="font-size: 0.75rem; color: #888; line-height: 1.6;">
+        <p style="margin: 0.25rem 0;"><strong>Cajero:</strong> cajero1 / cajero123</p>
+        <p style="margin: 0.25rem 0;"><strong>Ejecutivo:</strong> ejecutivo1 / ejecutivo123</p>
+        <p style="margin: 0.25rem 0;"><strong>Admin:</strong> admin / admin123</p>
+      </div>
+    </div>
+  </div>
+</div>
