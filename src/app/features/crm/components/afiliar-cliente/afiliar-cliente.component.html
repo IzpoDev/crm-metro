@@ -1,0 +1,136 @@
+<app-header></app-header>
+
+<main>
+  <!-- UC-CRM-01: Afiliar Cliente -->
+  <section class="mb-2">
+    <h1 class="text-center mb-2" style="color: var(--primary-color);">
+      <i class="fas fa-user-plus"></i> Afiliar Nuevo Cliente
+    </h1>
+    <p class="text-center text-light mb-2">Registre un nuevo cliente en el sistema con sus datos personales y medios
+      de contacto</p>
+
+    <div class="card" style="max-width: 800px; margin: 0 auto;">
+      <form [formGroup]="afiliarForm" (ngSubmit)="onSubmit()">
+        <!-- Datos Personales -->
+        <h3 class="mb-1" style="color: var(--primary-color);">
+          <i class="fas fa-id-card"></i> Datos Personales
+        </h3>
+
+        <div class="form-group">
+          <label for="dni">DNI *</label>
+          <input type="text" id="dni" formControlName="dni" class="form-control"
+            placeholder="Ingrese DNI de 8 dígitos" maxlength="8">
+          <small class="text-light">Debe contener exactamente 8 dígitos numéricos</small>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+          <div class="form-group">
+            <label for="nombres">Nombres *</label>
+            <input type="text" id="nombres" formControlName="nombres" class="form-control"
+              placeholder="Ej: Juan Carlos">
+          </div>
+
+          <div class="form-group">
+            <label for="apellidos">Apellidos *</label>
+            <input type="text" id="apellidos" formControlName="apellidos" class="form-control"
+              placeholder="Ej: Pérez García">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección *</label>
+          <input type="text" id="direccion" formControlName="direccion" class="form-control"
+            placeholder="Ej: Av. Principal 123, San Isidro">
+        </div>
+
+        <!-- Medios de Contacto -->
+        <h3 class="mb-1 mt-2" style="color: var(--primary-color);">
+          <i class="fas fa-address-book"></i> Medios de Contacto
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+          <div class="form-group">
+            <label for="telefono">Teléfono *</label>
+            <input type="tel" id="telefono" formControlName="telefono" class="form-control"
+              placeholder="999 999 999" maxlength="15">
+          </div>
+
+          <div class="form-group">
+            <label for="correo">Correo Electrónico *</label>
+            <input type="email" id="correo" formControlName="correo" class="form-control"
+              placeholder="ejemplo@correo.com">
+          </div>
+        </div>
+
+        <!-- Contacto Principal -->
+        <div class="form-group">
+          <label for="contactoPrincipal">Medio de Contacto Principal *</label>
+          <select id="contactoPrincipal" formControlName="contactoPrincipal" class="form-control">
+            <option value="">Seleccione el medio preferido</option>
+            <option value="telefono">Teléfono</option>
+            <option value="correo">Correo Electrónico</option>
+            <option value="whatsapp">WhatsApp</option>
+          </select>
+          <small class="text-light">Este será el medio principal para comunicaciones</small>
+        </div>
+
+        <!-- Preferencias de Comunicación -->
+        <div class="form-group">
+          <label class="mb-1">Preferencias de Comunicación</label>
+          <div style="background: #f8f9fa; padding: 1rem; border-radius: var(--radius);">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <input type="checkbox" id="aceptaPromociones" formControlName="aceptaPromociones"
+                style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+              <label for="aceptaPromociones" style="margin: 0; font-weight: normal;">
+                Acepta recibir promociones y ofertas
+              </label>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="aceptaNotificaciones" formControlName="aceptaNotificaciones"
+                style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+              <label for="aceptaNotificaciones" style="margin: 0; font-weight: normal;">
+                Acepta recibir notificaciones del sistema
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mensaje de Error -->
+        <div *ngIf="showError"
+          style="background: #ffebee; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+          <p style="color: var(--primary-color); margin: 0;">
+            <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+          </p>
+        </div>
+
+        <!-- Botones -->
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            <i class="fas fa-check"></i> Afiliar Cliente
+          </button>
+          <button type="button" (click)="onReset()" class="btn btn-outline" style="flex: 1;">
+            <i class="fas fa-times"></i> Limpiar Formulario
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Información Adicional -->
+  <section>
+    <div class="card" style="max-width: 800px; margin: 0 auto; background: #fff3cd; border-left: 4px solid #ffc107;">
+      <h4 style="color: #856404; margin-bottom: 0.5rem;">
+        <i class="fas fa-info-circle"></i> Información Importante
+      </h4>
+      <ul style="margin: 0; padding-left: 1.5rem; color: #856404;">
+        <li>Todos los campos marcados con (*) son obligatorios</li>
+        <li>El DNI debe ser único en el sistema</li>
+        <li>Se registrará automáticamente la fecha y usuario que realizó la afiliación</li>
+        <li>El sistema generará un código interno de cliente automáticamente</li>
+        <li>Los datos pueden ser editados posteriormente desde "Actualizar datos de cliente"</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

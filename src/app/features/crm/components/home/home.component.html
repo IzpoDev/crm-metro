@@ -1,0 +1,106 @@
+<app-header></app-header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero mb-2">
+    <div class="card">
+      <h1 style="color: var(--primary-color); margin-bottom: 0.5rem;">
+        <i class="fas fa-users"></i> Sistema CRM Metro
+      </h1>
+      <p class="text-light" style="font-size: 1.1rem;">Gestión integral de clientes y relaciones comerciales</p>
+    </div>
+  </section>
+
+  <!-- Módulos Principales -->
+  <section class="mb-2">
+    <h2 class="mb-1">Módulos del Sistema</h2>
+    <div class="grid-container" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+
+      <!-- UC-CRM-01: Afiliar Cliente -->
+      <a routerLink="/crm/afiliar" class="card"
+        style="color: inherit; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <div style="text-align: center; padding: 1rem;">
+          <div
+            style="background: linear-gradient(135deg, #4CAF50, #45a049); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+            <i class="fas fa-user-plus fa-3x" style="color: white;"></i>
+          </div>
+          <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Afiliar Cliente</h3>
+          <p class="text-light" style="margin-bottom: 1rem;">Registrar nuevos clientes en el sistema con sus datos
+            personales y medios de contacto.</p>
+          <div
+            style="background: #f8f9fa; padding: 0.75rem; border-radius: var(--radius); margin-bottom: 1rem;">
+            <p style="margin: 0; font-size: 0.9rem;"><strong>Actor:</strong> Cajero / Ejecutivo de atención</p>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; pointer-events: none;">
+            <i class="fas fa-arrow-right"></i> Acceder
+          </button>
+        </div>
+      </a>
+
+      <!-- UC-CRM-02: Actualizar Datos -->
+      <a routerLink="/crm/actualizar" class="card"
+        style="color: inherit; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <div style="text-align: center; padding: 1rem;">
+          <div
+            style="background: linear-gradient(135deg, #2196F3, #1976D2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+            <i class="fas fa-user-edit fa-3x" style="color: white;"></i>
+          </div>
+          <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Actualizar Datos</h3>
+          <p class="text-light" style="margin-bottom: 1rem;">Modificar información personal o de contacto de clientes
+            existentes.</p>
+          <div
+            style="background: #f8f9fa; padding: 0.75rem; border-radius: var(--radius); margin-bottom: 1rem;">
+            <p style="margin: 0; font-size: 0.9rem;"><strong>Actor:</strong> Ejecutivo / Supervisor</p>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; pointer-events: none;">
+            <i class="fas fa-arrow-right"></i> Acceder
+          </button>
+        </div>
+      </a>
+
+      <!-- UC-CRM-03: Notificar Oferta -->
+      <a routerLink="/crm/notificar" class="card"
+        style="color: inherit; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <div style="text-align: center; padding: 1rem;">
+          <div
+            style="background: linear-gradient(135deg, #FF9800, #F57C00); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+            <i class="fas fa-bullhorn fa-3x" style="color: white;"></i>
+          </div>
+          <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Notificar Oferta</h3>
+          <p class="text-light" style="margin-bottom: 1rem;">Enviar comunicaciones de ofertas y promociones a clientes
+            seleccionados.</p>
+          <div
+            style="background: #f8f9fa; padding: 0.75rem; border-radius: var(--radius); margin-bottom: 1rem;">
+            <p style="margin: 0; font-size: 0.9rem;"><strong>Actor:</strong> Ejecutivo de marketing</p>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; pointer-events: none;">
+            <i class="fas fa-arrow-right"></i> Acceder
+          </button>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Información del Sistema -->
+  <section>
+    <div class="card"
+      style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-left: 4px solid var(--primary-color);">
+      <h3 style="color: var(--primary-color); margin-bottom: 1rem;">
+        <i class="fas fa-info-circle"></i> Acerca del Sistema CRM
+      </h3>
+      <p class="text-light" style="margin-bottom: 1rem;">
+        El Sistema CRM de Metro permite gestionar la relación con los clientes a través de tres módulos principales:
+      </p>
+      <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-color);">
+        <li style="margin-bottom: 0.5rem;"><strong>Afiliación:</strong> Registro de nuevos clientes con validación de
+          datos y medios de contacto.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>Actualización:</strong> Modificación de información con
+          trazabilidad completa de cambios.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>Notificación:</strong> Envío de ofertas y promociones respetando
+          preferencias del cliente.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

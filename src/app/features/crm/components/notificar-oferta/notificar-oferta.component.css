@@ -1,0 +1,22 @@
+/* Los estilos están en el archivo global styles.css */
+
+.cliente-item {
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  background: white;
+}
+
+.cliente-item:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.cliente-item:active {
+  transform: translateY(0);
+}
+

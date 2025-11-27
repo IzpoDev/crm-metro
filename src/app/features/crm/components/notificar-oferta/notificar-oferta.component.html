@@ -1,0 +1,225 @@
+<app-header></app-header>
+
+<main>
+  <!-- UC-CRM-03: Notificar Oferta o Promoción -->
+  <section class="mb-2">
+    <h1 class="text-center mb-2" style="color: var(--primary-color);">
+      <i class="fas fa-bullhorn"></i> Notificar Oferta o Promoción
+    </h1>
+    <p class="text-center text-light mb-2">Envíe comunicaciones de ofertas y promociones a clientes seleccionados</p>
+
+    <!-- Selección de Cliente -->
+    <div class="card mb-2" style="max-width: 900px; margin: 0 auto;">
+      <h3 class="mb-1" style="color: var(--primary-color);">
+        <i class="fas fa-users"></i> 1. Seleccionar Cliente
+      </h3>
+
+      <form [formGroup]="buscarForm">
+        <div class="form-group">
+          <label for="buscarCliente">Buscar Cliente</label>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <input type="text" id="buscarCliente" formControlName="buscarCliente" class="form-control"
+              placeholder="Buscar por DNI, nombre o teléfono" style="flex: 1; min-width: 250px;">
+            <button type="button" (click)="onBuscarCliente()" class="btn btn-primary">
+              <i class="fas fa-search"></i> Buscar
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de Clientes -->
+        <div *ngIf="showListaClientes" style="margin-top: 1rem;">
+          <h4 class="mb-1">Resultados de Búsqueda</h4>
+          <div style="max-height: 300px; overflow-y: auto;">
+            <div *ngFor="let cliente of clientesEncontrados"
+              class="cliente-item"
+              (click)="seleccionarCliente(cliente)">
+              <p style="margin: 0; font-weight: 600;">{{ cliente.nombres }} {{ cliente.apellidos }}</p>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">
+                DNI: {{ cliente.dni }} | Tel: {{ cliente.telefono }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cliente Seleccionado -->
+        <div *ngIf="clienteSeleccionado"
+          style="background: #e8f5e9; border-left: 4px solid var(--success-color); padding: 1rem; border-radius: var(--radius); margin-top: 1rem;">
+          <h4 style="color: #2e7d32; margin-bottom: 0.5rem;">
+            <i class="fas fa-check-circle"></i> Cliente Seleccionado
+          </h4>
+          <p style="margin: 0; color: #2e7d32;">
+            <strong>Nombre:</strong> {{ clienteSeleccionado.nombres }} {{ clienteSeleccionado.apellidos }} |
+            <strong>DNI:</strong> {{ clienteSeleccionado.dni }}
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Configuración de Notificación -->
+    <div *ngIf="clienteSeleccionado">
+      <div class="card" style="max-width: 900px; margin: 0 auto;">
+        <form [formGroup]="notificarForm" (ngSubmit)="onEnviarNotificacion()">
+          <!-- Medio de Contacto -->
+          <h3 class="mb-1" style="color: var(--primary-color);">
+            <i class="fas fa-paper-plane"></i> 2. Seleccionar Medio de Contacto
+          </h3>
+
+          <div class="form-group">
+            <label for="medioContacto">Canal de Comunicación *</label>
+            <select id="medioContacto" formControlName="medioContacto" class="form-control">
+              <option value="">Seleccione el canal</option>
+              <option value="telefono">Teléfono</option>
+              <option value="correo">Correo Electrónico</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="sms">SMS</option>
+            </select>
+          </div>
+
+          <div *ngIf="notificarForm.value.medioContacto"
+            style="background: #f8f9fa; padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+            <p style="margin: 0;">
+              <strong>Medio preferido del cliente:</strong> {{ clienteSeleccionado.contactoPrincipal }}
+            </p>
+            <p style="margin: 0.5rem 0 0 0;">
+              <strong>Información de contacto:</strong>
+              <span *ngIf="notificarForm.value.medioContacto === 'telefono' || notificarForm.value.medioContacto === 'whatsapp' || notificarForm.value.medioContacto === 'sms'">
+                {{ clienteSeleccionado.telefono }}
+              </span>
+              <span *ngIf="notificarForm.value.medioContacto === 'correo'">
+                {{ clienteSeleccionado.correo }}
+              </span>
+            </p>
+          </div>
+
+          <!-- Mensaje de la Oferta -->
+          <h3 class="mb-1 mt-2" style="color: var(--primary-color);">
+            <i class="fas fa-edit"></i> 3. Redactar Mensaje
+          </h3>
+
+          <div class="form-group">
+            <label for="tipoOferta">Tipo de Oferta</label>
+            <select id="tipoOferta" formControlName="tipoOferta" class="form-control">
+              <option value="">Seleccione el tipo</option>
+              <option value="descuento">Descuento</option>
+              <option value="2x1">2x1</option>
+              <option value="envio">Envío Gratis</option>
+              <option value="nuevo-producto">Nuevo Producto</option>
+              <option value="programa-lealtad">Programa de Lealtad</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="asuntoMensaje">Asunto del Mensaje *</label>
+            <input type="text" id="asuntoMensaje" formControlName="asuntoMensaje" class="form-control"
+              placeholder="Ej: ¡Oferta especial solo para ti!">
+          </div>
+
+          <div class="form-group">
+            <label for="cuerpoMensaje">Mensaje de la Oferta *</label>
+            <textarea id="cuerpoMensaje" formControlName="cuerpoMensaje" class="form-control" rows="6"
+              placeholder="Redacte el mensaje de la oferta o promoción..."></textarea>
+            <small class="text-light">El mensaje debe ser claro y atractivo para el cliente</small>
+          </div>
+
+          <!-- Plantillas Predefinidas -->
+          <div class="form-group">
+            <label>Plantillas Predefinidas</label>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" (click)="cargarPlantilla('descuento')" class="btn btn-outline"
+                style="flex: 1; min-width: 150px;">
+                <i class="fas fa-percent"></i> Descuento
+              </button>
+              <button type="button" (click)="cargarPlantilla('2x1')" class="btn btn-outline"
+                style="flex: 1; min-width: 150px;">
+                <i class="fas fa-gift"></i> 2x1
+              </button>
+              <button type="button" (click)="cargarPlantilla('envio')" class="btn btn-outline"
+                style="flex: 1; min-width: 150px;">
+                <i class="fas fa-shipping-fast"></i> Envío Gratis
+              </button>
+            </div>
+          </div>
+
+          <!-- Validación de Preferencias -->
+          <div *ngIf="showAdvertencia"
+            style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+            <h4 style="color: #856404; margin-bottom: 0.5rem;">
+              <i class="fas fa-exclamation-triangle"></i> Advertencia
+            </h4>
+            <p style="color: #856404; margin: 0;">{{ mensajeAdvertencia }}</p>
+          </div>
+
+          <!-- Mensaje de Error -->
+          <div *ngIf="showError"
+            style="background: #ffebee; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+            <p style="color: var(--primary-color); margin: 0;">
+              <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+            </p>
+          </div>
+
+          <!-- Botones -->
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button type="submit" class="btn btn-primary" style="flex: 1;">
+              <i class="fas fa-paper-plane"></i> Enviar Notificación
+            </button>
+            <button type="button" (click)="cancelar()" class="btn btn-outline" style="flex: 1;">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historial de Notificaciones Enviadas -->
+  <section *ngIf="showHistorial">
+    <h2 class="mb-1" style="color: var(--primary-color);">
+      <i class="fas fa-history"></i> Historial de Notificaciones
+    </h2>
+    <div class="card" style="max-width: 900px; margin: 0 auto; overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; min-width: 700px;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--bg-color); text-align: left;">
+            <th style="padding: 1rem;">Cliente</th>
+            <th style="padding: 1rem;">Medio</th>
+            <th style="padding: 1rem;">Tipo</th>
+            <th style="padding: 1rem;">Fecha</th>
+            <th style="padding: 1rem;">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let notif of historialNotificaciones"
+            style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 1rem;">{{ notif.clienteNombre }}</td>
+            <td style="padding: 1rem;">{{ notif.medioContacto }}</td>
+            <td style="padding: 1rem;">{{ notif.tipoOferta }}</td>
+            <td style="padding: 1rem;">{{ notif.fechaEnvio }}</td>
+            <td style="padding: 1rem;">
+              <span
+                [style.color]="notif.estado === 'enviado' ? 'var(--success-color)' : 'var(--primary-color)'">
+                {{ notif.estado }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Información Adicional -->
+  <section class="mt-2">
+    <div class="card" style="max-width: 900px; margin: 0 auto; background: #e3f2fd; border-left: 4px solid #2196F3;">
+      <h4 style="color: #1565C0; margin-bottom: 0.5rem;">
+        <i class="fas fa-info-circle"></i> Información Importante
+      </h4>
+      <ul style="margin: 0; padding-left: 1.5rem; color: #1565C0;">
+        <li>El sistema verifica automáticamente las preferencias y consentimientos del cliente</li>
+        <li>Si el canal seleccionado no está habilitado, se bloqueará el envío</li>
+        <li>Todas las notificaciones se registran como actividades CRM</li>
+        <li>El historial permite medir la efectividad de las comunicaciones</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

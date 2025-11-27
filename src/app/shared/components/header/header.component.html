@@ -1,0 +1,21 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-shopping-cart"></i> Metro CRM
+    </div>
+    <div class="nav-right">
+      <div class="nav-links" [class.active]="menuActive">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+        <a routerLink="/crm/afiliar" routerLinkActive="active">Afiliar Cliente</a>
+        <a routerLink="/crm/actualizar" routerLinkActive="active">Actualizar Datos</a>
+        <a routerLink="/crm/notificar" routerLinkActive="active">Notificar Oferta</a>
+      </div>
+      <div class="nav-icons">
+        <a href="#" class="user-icon"><i class="fas fa-user-circle fa-lg"></i></a>
+        <div class="hamburger" (click)="toggleMenu()">
+          <i class="fas" [class.fa-bars]="!menuActive" [class.fa-times]="menuActive"></i>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
